@@ -1,5 +1,6 @@
 package com.project.test.organeHRM.utils;
 
+
 import java.util.Random;
 
 public class DataUtils {
@@ -17,5 +18,6 @@ public class DataUtils {
 	            .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
 	            .toString();
 	}
+	
 	
 }

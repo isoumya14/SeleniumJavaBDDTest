@@ -27,7 +27,17 @@ public class LoginPage extends SeleniumWebActions{
     @FindBy(xpath="//div[contains(text(),'Next')]")
     private WebElement nextButton;
 
-    @FindBy(css = "#password")
+    public WebElement getPasswordInput() {
+		return passwordInput;
+	}
+
+
+	public void setPasswordInput(WebElement passwordInput) {
+		this.passwordInput = passwordInput;
+	}
+
+
+	@FindBy(css = "#password")
     private WebElement passwordInput;
     
     @FindBy(css="[data-id=submit-button]")
@@ -45,6 +55,9 @@ public class LoginPage extends SeleniumWebActions{
     
     @FindBy(css=".logo")
     private WebElement getLogo;
+    
+    @FindBy(xpath="//a[contains(text(),'Forgot Password')]")
+    private WebElement forgetPasswordBtn;
 
 
     
@@ -56,8 +69,7 @@ public class LoginPage extends SeleniumWebActions{
         return WaitUtils.waitForDisplayed(getLogo, DriverManager.getDriver(), timeoutSec);
     }
     
-    
-    
+     
     public boolean isLoginPageDisplayed() {
         return driver.getTitle().equalsIgnoreCase("Performance+");
     }
@@ -77,9 +89,17 @@ public class LoginPage extends SeleniumWebActions{
     }
 
     
-    public boolean isErrorMessageDisplayed() {
+    public boolean isPasswordErrorMessageDisplayed() {
         try {
             return getInvalidPasswordMsg.isDisplayed();
+        } catch (NoSuchElementException e) {
+            return false;
+        }
+    }
+    
+    public boolean isUserNameErrorMessageDisplayed() {
+        try {
+            return getInvalidUserNameMsg.isDisplayed();
         } catch (NoSuchElementException e) {
             return false;
         }
@@ -102,4 +122,16 @@ public class LoginPage extends SeleniumWebActions{
         enterPassword(password);
         clickLoginButton();
     }
+
+
+	public boolean isConcurrentSessionMessageDisplayed() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+	public boolean checkForgetPasswordLink() {
+		// TODO Auto-generated method stub
+		return	forgetPasswordBtn.isDisplayed();
+	}
 }

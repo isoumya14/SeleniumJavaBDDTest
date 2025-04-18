@@ -1,12 +1,17 @@
 package com.project.test.organeHRM.utils;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.Duration;
 import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;
 
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.OutputType;
 import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -165,6 +170,15 @@ public class SeleniumWebActions {
 		js.executeScript("arguments[0].style.border='3px solid red'", element);
 	}
 
-	
+	// Take screenshot and save to folder
+	public void takeScreenshot(String testName) {
+	    File src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+	    try {
+	        FileUtils.copyFile(src, new File("./screenshots/" + testName + "_" + System.currentTimeMillis() + ".png"));
+	    } catch (IOException e) {
+	        System.out.println("Screenshot failed: " + e.getMessage());
+	    }
+	}
+
 
 }
